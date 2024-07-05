@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Code Page</title>
+    <link rel="stylesheet" href="css/buildcode.css">
+    <script src="js/buildcode.js" defer></script>
+</head>
+<body>
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    width: 150px;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.sidebar-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    border-radius: 5px;
+    position: relative;
+    font-size: 1rem;
+}
+
+.sidebar-btn img {
+    margin-right: 0.5rem;
+    height: 24px;
+    width: 24px;
+}
+
+.sidebar-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    background-color: #fff;
+    position: relative;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 25px;
+    left: 150px;
+    right: 150px;
+    background-color: #f0f0f0;
+    padding: 0.25rem;
+    z-index: 1000;
+    border-radius: 25px;
+    box-shadow: none;
+}
+
+.search-bar textarea {
+    flex-grow: 1;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 15px;
+    background-color: #f0f0f0;
+    outline: none;
+    resize: none;
+    height: 20px;
+    max-height: 80px; /* Set maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.search-bar textarea::placeholder {
+    color: #999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 20px;
+}
+
+.search-bar .send-button,
+.search-bar .attach-icon {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bar .send-button {
+    border-radius: 0 15px 15px 0;
+}
+
+.search-bar .attach-icon {
+    margin-right: 0.25rem;
+    border-radius: 15px 0 0 15px;
+}
+
+.search-bar .send-button img,
+.search-bar .attach-icon img {
+    height: 24px;
+    width: 24px;
+}
+
+.search-bar .send-button:hover,
+.search-bar .attach-icon:hover {
+    background-color: #e0e0e0;
+}
+
+.profile-section {
+    width: 150px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    flex-shrink: 0;
+}
+
+.user-profile {
+    position: relative;
+}
+
+.user-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.right-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    flex-basis: 0;
+}
+
+/* Build Code Page Specific Styles */
+.chat-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    overflow-y: auto;
+    background-color: #fff;
+}
+
+.chat-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    padding-bottom: 25px; /* Adjust the padding-bottom */
+}
+
+.message {
+    display: inline-block;
+    padding: 10px;
+    margin: 5px 20px; /* Adjusted margin for more spacing */
+    border-radius: 10px;
+    max-width: 70%; /* Adjust as needed */
+    word-wrap: break-word;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+}
+
+.message.user {
+    background-color: #e0e0e0;
+    align-self: flex-end;
+}
+
+.message.bot {
+    align-self: flex-start;
+}
+
+    </style>
+    <div class="main-container">
+        <aside class="sidebar">
+            <button class="sidebar-btn">
+                <img src="/static/img/library.png" alt="Library">
+                Library
+            </button>
+            <button class="sidebar-btn">
+                <img src="/static/img/buildcode.png" alt="Build Code">
+                Build Code
+            </button>
+            <button class="sidebar-btn">
+                <img src="/static/img/safety.png" alt="Safety">
+                Safety
+            </button>
+            <button class="sidebar-btn">
+                <img src="/static/img/environmental.png" alt="Environmental">
+                Environmental
+            </button>
+            <button class="sidebar-btn">
+                <img src="/static/img/diy.png" alt="DIY">
+                DIY
+            </button>
+            <button class="sidebar-btn">
+                <img src="/static/img/products.png" alt="Products">
+                Products
+            </button>
+            <button class="sidebar-btn">
+                <img src="/static/img/doc.png" alt="Doc Create">
+                Doc Create
+            </button>
+            <button class="sidebar-btn">
+                <img src="/static/img/help.png" alt="Help">
+                Help
+            </button>
+        </aside>
+        <main class="content">
+            <div class="chat-container" id="chat-container">
+                <div id="chat-area" class="chat-area">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+            </div>
+            <div class="search-bar">
+                <textarea placeholder="Ask or search..." id="search-input"></textarea>
+                <button class="send-button" id="send-button">
+                    <img src="/static/img/up.png" alt="Send">
+                </button>
+                <button class="attach-icon">
+                    <img src="/static/img/attach.png" alt="Attach">
+                </button>
+            </div>
+        </main>
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="user-profile">
+                    <img src="/static/img/usericon.png" alt="User" class="user-icon">
+                </div>
+            </div>
+            <div class="right-content">
+                <!-- Additional content like notifications and buttons will go here -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

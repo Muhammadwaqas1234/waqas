@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/images/background_image.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5); 
+            z-index: -1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .logo {
+            height: 75px; 
+        }
+
+        .nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #fff;
+        }
+
+        .nav a {
+            color: #000;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .nav a.button {
+            color: #000;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 5px;
+            padding: 0.5rem 1.5rem;
+            margin-left: 1rem;
+        }
+
+        .nav a.button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .user-icon {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .user-profile:hover .user-dropdown {
+            display: block;
+        }
+
+        .user-dropdown a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.3s;
+        }
+
+        .user-dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px; 
+            width: 250px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transition: left 0.3s;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .sidebar.open {
+            left: 0; 
+        }
+
+        .sidebar .nav {
+            flex-direction: column;
+        }
+
+        .sidebar .nav a {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar-toggle-btn {
+            display: none; 
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 60px); 
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .main-container h1, .main-container p, .main-container button {
+            margin: 1rem 0;
+        }
+
+        .main-container button {
+            padding: 0.5rem 1.5rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .main-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            padding: 1rem 5%;
+            background-color: #f9f9f9;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a, .contact-info a {
+            color: #000;
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-media a {
+            margin-right: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 2%;
+            }
+
+            .nav {
+                display: none; 
+            }
+
+            .sidebar-toggle-btn {
+                display: block; 
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1001;
+            }
+
+            .main-container {
+                padding: 1rem;
+            }
+
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links, .contact-info {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                height: 50px;
+            }
+
+            .nav a {
+                margin: 0.5rem 0;
+                padding: 0.5rem 1rem;
+            }
+
+            .main-container h1 {
+                font-size: 1.5rem;
+            }
+
+            .main-container p {
+                font-size: 1rem;
+            }
+
+            .main-container button {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+
+            .footer {
+                padding: 1rem 2%;
+            }
+
+            .footer-links a, .contact-info a {
+                font-size: 0.875rem;
+            }
+
+            .contact-info p {
+                font-size: 0.875rem;
+            }
+
+            .social-media a {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="/static/img/LOGO.png" alt="Logo" class="logo">
+        
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">Features</a>
+            <a href="#">Pricing</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="{{ url_for('login') }}" class="button">Sign in</a>
+        </nav>
+        <div class="user-profile">
+            <img src="/static/img/usericon.png" alt="User" class="user-icon">
+            <div class="user-dropdown">
+                <a href="#">Profile</a>
+                <a href="#">Settings</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    
+    <main class="main-container">
+        <h1>Welcome to Our Service</h1>
+        <p>Experience the best we have to offer with our exclusive features and benefits.</p>
+        <button>Get Started</button>
+    </main>
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="contact-info">
+            <p>Contact Us: <a href="mailto:contact@example.com">contact@example.com</a></p>
+            <div class="social-media">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            } else {
+                sidebar.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
